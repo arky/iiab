@@ -97,7 +97,7 @@
    - python-pip
    - python-setuptools
    - python-virtualenv
- 
+
 - name: Update common packages (not debian
   package: name={{ item }}
            state=latest
@@ -124,7 +124,7 @@
 #  service: name=NetworkManager
 #           state=restarted
 #  when: not installing
-# the above should use a handler - all reboots should wait until all 
+# the above should use a handler - all reboots should wait until all
 # mods are preformed
 
 - name: Install optional exFAT packages for CentOS
