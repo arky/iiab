@@ -1,7 +1,7 @@
 - name: Download the latest stable version of sugarizer from location under our control
   get_url: url={{ iiab_download_url }}/{{ sugarizer_version }}.tar.gz
            dest={{ downloads_dir }}/{{ sugarizer_version }}.tar.gz
-  
+
 - name: Untar it to target location
   command: tar xzf {{ downloads_dir }}/{{ sugarizer_version }}.tar.gz -C {{ sugarizer_location }}
 
@@ -14,7 +14,7 @@
   package: name=nodejs
            state=present
 #    - npm
-  when: internet_available 
+  when: internet_available
 
 - name: Install npm non debian
   package: name=npm
@@ -27,7 +27,7 @@
   register: npm
 
 - name: set a flag to abort second attempt to install
-  set_fact: 
+  set_fact:
      npm_exists: True
   when: npm.stat.exists is defined and npm.stat.exists
 
@@ -39,7 +39,7 @@
   command: apt-get install -y npm
   when: internet_available and is_debian and not npm_exists
 
-- name: Create systemd files and copy our ini file 
+- name: Create systemd files and copy our ini file
   template: src={{ item.src }}
             dest={{ item.dest }}
             owner=root
@@ -58,14 +58,14 @@
 - name: Create the express framework for node.js
   shell:  npm install
   args:
-     chdir: "{{ sugarizer_location }}/sugarizer/server" 
+     chdir: "{{ sugarizer_location }}/sugarizer/server"
      creates: "{{ sugarizer_location }}/sugarizer/server/node_modules"
   when: not is_F18
 
 - name: Create the express framework for node.js
   shell:  npm install
   args:
-     chdir: "{{ sugarizer_location }}/sugarizer/server" 
+     chdir: "{{ sugarizer_location }}/sugarizer/server"
   when: is_F18
 
 #- name: enable services
@@ -94,6 +94,6 @@
        - option: name
          value: Sugarizer
        - option: description
-         value: '"The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project. Sugarizer is a web implementation of that platform"' 
+         value: '"The Sugar Learning Platform is a leading learning platform that began in the famous One Laptop Per Child project. Sugarizer is a web implementation of that platform"'
        - option: enabled
          value: "{{ sugarizer_enabled }}"
