@@ -34,9 +34,7 @@
   become_user: postgres
 
 - name: Create postgres database
-  postgresql_db: db=statsconso owner=statsconso
-  sudo: yes
-  sudo_user: postgres
+  postgresql_db: name=statsconso owner=statsconso
 
 - name: Install conf file
   template: backup=yes
