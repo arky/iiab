@@ -36,9 +36,5 @@ script:
   #  Continous integration: ansible code review
   - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review
 
-  # Continouse integration: ansible code review of changes between master and current branch
-  - git diff master | ansible-review
-
-
 #notifications:
 #  webhooks:
