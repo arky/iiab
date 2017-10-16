@@ -26,6 +26,8 @@ install:
 
 script:
   # Continuous integration: syntax check
+  - ansible-playbook --check iiab.yml -i tests/inventory
+  # Continuous integration: syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
 
   # Continous integration: ansible-list
