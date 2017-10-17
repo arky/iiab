@@ -28,7 +28,7 @@ script:
   # Grab the local vars file.
   - wget -c -P ./vars/ http://download.iiab.io/6.5/rpi/local_vars.yml
   # Continuous integration: syntax check
-  - ansible-playbook --check iiab-base.yml -i ansible_hosts -vvv
+  - ansible-playbook --check iiab-base.yml --connection=local -vvv
   # Continuous integration: syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
 
