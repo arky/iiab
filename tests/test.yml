@@ -25,11 +25,11 @@
         dest: /etc/ansible/facts.d/local_facts.fact
         mode: 0755
 
-  vars_files:
-  - ../vars/default_vars.yml
-  - ../vars/medium.localvars
+  #vars_files:
+  #- ../vars/default_vars.yml
+  #- ../vars/medium.localvars
   #- ../vars/{{ ansible_local.local_facts.os_ver }}.yml
-  - ../vars/local_vars.yml
+  #- ../vars/local_vars.yml
 
 
   # TODO: Making a anisble-iiab roles for ansible-galaxy
