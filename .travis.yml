@@ -30,8 +30,8 @@ before_script:
   # Create Ansbile-review config.ini config file.
   - mkdir ~/ansible-review
   - echo -e  "[rules] \n
-    standards = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansible-review-rules \n
-    lint = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansible-review-rules/lint-rules" >> ~/ansible-review/config.ini
+    standards = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}_with_system_site_packages/local/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansiblereview/examples \n
+    lint = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}_with_system_site_packages/local/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansiblereview/examples/lint-rules" >> ~/ansible-review/config.ini
   - cat ~/ansible-review/config.ini
 script:
   # Continuous integration: syntax check
