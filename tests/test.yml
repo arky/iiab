@@ -1,61 +1,70 @@
 ---
 - hosts: localhost
+  connection: local
+  become: true
   remote_user: root
+  gather_facts: true
+
+  vars_files:
+  - ../vars/default_vars.yml
+  - ../vars/medium.localvars
+  #- ../vars/{{ ansible_local.local_facts.os_ver }}.yml
+  - ../vars/local_vars.yml
+
+
   # TODO: Making a anisble-iiab roles for ansible-galaxy
   #  roles:
   #      - iiab
   # For now hardcoding all the roles manually with  ls -l roles/ | cut -d " " -f 10
   roles:
-    - ../roles/1-prep
-    - ../roles/2-common
-    - ../roles/3-base-server
-    - ../roles/4-server-options
-    - ../roles/5-xo-services
-    - ../roles/6-generic-apps
-    - ../roles/7-edu-apps
-    - ../roles/8-mgmt-tools
-    - ../roles/9-local-addons
-    - ../roles/activity-server
-    - ../roles/ajenti
-    - ../roles/authserver
-    - ../roles/awstats
-    - ../roles/calibre
-    - ../roles/cups
-    - ../roles/debian_schooltool
-    - ../roles/docker
-    - ../roles/dokuwiki
-    - ../roles/ejabberd
-    - ../roles/ejabberd_xs
-    - ../roles/elgg
-    # Disabling gateway doesn't contain any tasks?
-    #- ../roles/gateway
-    - ../roles/httpd
-    - ../roles/idmgr
-    - ../roles/iiab-admin
-    - ../roles/kalite
-    - ../roles/kiwix
-    - ../roles/mongodb
-    - ../roles/monit
-    - ../roles/moodle
-    - ../roles/moodle-1.9
-    - ../roles/munin
-    - ../roles/mysql
-    - ../roles/network
-    - ../roles/nextcloud
-    - ../roles/openvpn
-    - ../roles/osm
-    - ../roles/owncloud
-    - ../roles/pathagar
-    - ../roles/phpmyadmin
-    - ../roles/postgresql
-    - ../roles/rachel
-    - ../roles/samba
-    - ../roles/schooltool
-    - ../roles/sshd
-    - ../roles/sugarizer
-    - ../roles/sugar-stats
-    - ../roles/teamviewer
-    - ../roles/usb-lib
-    - ../roles/vnstat
-    - ../roles/wordpress
-    - ../roles/xovis
+    - {role: ../roles/1-prep}
+    - {role: ../roles/2-common}
+    - {role: ../roles/3-base-server}
+    - {role: ../roles/4-server-options}
+    - {role: ../roles/5-xo-services}
+    - {role: ../roles/6-generic-apps}
+    - {role: ../roles/7-edu-apps}
+    - {role: ../roles/8-mgmt-tools}
+    - {role: ../roles/9-local-addons}
+    - {role: ../roles/activity-server}
+    - {role: ../roles/ajenti}
+    - {role: ../roles/authserver}
+    - {role: ../roles/awstats}
+    - {role: ../roles/calibre}
+    - {role: ../roles/cups}
+    - {role: ../roles/debian_schooltool}
+    - {role: ../roles/docker}
+    - {role: ../roles/dokuwiki}
+    - {role: ../roles/ejabberd}
+    - {role: ../roles/ejabberd_xs}
+    - {role: ../roles/elgg}
+    - {role: ../roles/httpd}
+    - {role: ../roles/idmgr}
+    - {role: ../roles/iiab-admin}
+    - {role: ../roles/kalite}
+    - {role: ../roles/kiwix}
+    - {role: ../roles/mongodb}
+    - {role: ../roles/monit}
+    - {role: ../roles/moodle}
+    - {role: ../roles/moodle-1.9}
+    - {role: ../roles/munin}
+    - {role: ../roles/mysql}
+    - {role: ../roles/network}
+    - {role: ../roles/nextcloud}
+    - {role: ../roles/openvpn}
+    - {role: ../roles/osm}
+    - {role: ../roles/owncloud}
+    - {role: ../roles/pathagar}
+    - {role: ../roles/phpmyadmin}
+    - {role: ../roles/postgresql}
+    - {role: ../roles/rachel}
+    - {role: ../roles/samba}
+    - {role: ../roles/schooltool}
+    - {role: ../roles/sshd}
+    - {role: ../roles/sugarizer}
+    - {role: ../roles/sugar-stats}
+    - {role: ../roles/teamviewer}
+    - {role: ../roles/usb-lib}
+    - {role: ../roles/vnstat}
+    - {role: ../roles/wordpress}
+    - {role: ../roles/xovis}
