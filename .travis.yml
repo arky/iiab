@@ -64,7 +64,7 @@ jobs:
         - find . -type f -name '*.yml' -o -name '*.yaml' -o -name '*.j2'| xargs ansible-review -s "Roles file should be in yaml format" -s "Inventory must be parseable" -s "Inventory host files should not" -s "Tasks and handlers must be uniquely named within a single file" -s "Tasks and handlers must be uniquely named within a single file" -s "Vars should only occur once per file" -s "Use YAML format for tasks and handlers rather than key=value" -s "Files should contain useful content" -s "Host vars should not be present" -s "Same variable defined in siblings"
     - stage: build
       script:
-          - echo "TK"
+          - - ansible-playbook --check tests/test.yml -i tests/inventory -vvv
 #notifications:
 #   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 #
