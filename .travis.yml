@@ -26,7 +26,7 @@ env:
 #  - ANSIBLE_VERSION=1.9.6
 
 # Use the new container infrastructure
-sudo: false
+sudo: required
 
 #before_install:
 #  - sudo apt-get update -qq
