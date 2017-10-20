@@ -24,6 +24,13 @@ install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
+before_script:
+  # Create Ansbile-review config.ini config file.
+  - mkdir ~/ansible-review
+  - echo -e  "[rules] \n
+    standards = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansible-review-rules \n
+    lint = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansible-review-rules/lint-rules" >> ~/ansible-review/config.ini
+  - cat ~/ansible-review/config.ini
 script:
   # Continuous integration: syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
@@ -32,11 +39,15 @@ script:
   - ansible-lint -p *yml
 
   #  Continous integration: ansible code review
-  - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review
-
-  # Continouse integration: ansible code review of changes between master and current branch
-  - git diff master | ansible-review
-
+  - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review -c tests/ansible-review_config.ini
 
 #notifications:
-#  webhooks:
+#   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+#
+#  irc:
+#    channels: "irc.freenode.org#fabric"
+#    template:
+#      - "%{repository}@%{branch}: %{message} (%{build_url})"
+#    on_success: change
+#    on_failure: change
+#  email: false
