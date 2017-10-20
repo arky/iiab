@@ -1,8 +1,6 @@
 ---
 language: python
 python: "2.7"
-virtualenv:
-    system_site_packages: true
 
 # Use the new container infrastructure
 sudo: false
@@ -26,13 +24,6 @@ install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
-before_script:
-  # Create Ansbile-review config.ini config file.
-  - mkdir ~/ansible-review
-  - echo -e  "[rules] \n
-    standards = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}_with_system_site_packages/local/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansiblereview/examples \n
-    lint = ${HOME}/virtualenv/python${TRAVIS_PYTHON_VERSION}_with_system_site_packages/local/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/ansible-review/ansiblereview/examples/lint-rules" >> ~/ansible-review/config.ini
-  - cat ~/ansible-review/config.ini
 script:
   # Continuous integration: syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
@@ -40,8 +31,8 @@ script:
   # Continous integration: ansible-list
   - ansible-lint -p *yml
 
-  #  Continous integration: ansible code review
-  - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review -c tests/ansible-review_config.ini
+  #  Continous integration: run select ansible code reviews
+  - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review -s "Roles file should be in yaml format" -s "Inventory must be parseable" -s "Inventory host files should not" -s "Tasks and handlers must be uniquely named within a single file" -s "Tasks and handlers must be uniquely named within a single file" -s "Vars should only occur once per file" -s "Use YAML format for tasks and handlers rather than key=value" -s "Files should contain useful content" -s "Host vars should not be present" -s "Same variable defined in siblings"
 
 #notifications:
 #   webhooks: https://galaxy.ansible.com/api/v1/notifications/
