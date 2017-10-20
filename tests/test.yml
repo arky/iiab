@@ -17,7 +17,7 @@
     - name: "Copy Medium.localvars"
       copy:
         src: ../vars/medium.localvars
-        dest: ../vars/medium.localvars
+        dest: ../vars/local_vars.yml
         mode: 0755
     - name: "Insert custom fact file"
       copy:
