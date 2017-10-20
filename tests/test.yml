@@ -5,6 +5,27 @@
   remote_user: root
   gather_facts: true
 
+- name: "Create /etc/iiab directory"
+  file:
+    path: "/etc/iiab"
+    state: "directory"
+
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    state: "directory"
+- name: "Copy Medium.localvars"
+  copy:
+    src: ../vars/medium.localvars
+    dest: ../vars/medium.localvars
+    mode: 0755
+- name: "Insert custom fact file"
+  copy:
+    src: ../scripts/local_facts.fact
+    dest: /etc/ansible/facts.d/local_facts.fact
+    mode: 0755
+
+
   vars_files:
   - ../vars/default_vars.yml
   - ../vars/medium.localvars
