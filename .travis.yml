@@ -2,6 +2,9 @@
 language: python
 python: "2.7"
 
+notifications:
+email: false
+
 stages:
   - test
   - build
@@ -54,6 +57,7 @@ install:
 jobs:
   include:
     - stage: test
+      allow_failures:
       script:
         # Continuous integration: syntax check
         - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
