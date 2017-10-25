@@ -2,9 +2,6 @@
 language: python
 python: "2.7"
 
-notifications:
-email: false
-
 stages:
   - test
   - build
@@ -69,7 +66,7 @@ jobs:
     - stage: build
       script:
           - ansible-playbook tests/test.yml -i tests/inventory -vvv
-#notifications:
+notifications:
 #   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 #
 #  irc:
@@ -78,4 +75,4 @@ jobs:
 #      - "%{repository}@%{branch}: %{message} (%{build_url})"
 #    on_success: change
 #    on_failure: change
-#  email: false
+  email: false
