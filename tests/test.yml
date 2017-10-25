@@ -4,12 +4,15 @@
   become: true
   remote_user: root
   gather_facts: true
+
   pre_tasks:
+    - name: "Run setup with filter ansible_local"
+      setup:
+          filter: ansible_local
     - name: "Create /etc/iiab directory"
       file:
         path: "/etc/iiab"
         state: "directory"
-
     - name: "Create custom fact directory"
       file:
         path: "/etc/ansible/facts.d"
@@ -29,7 +32,6 @@
   - ../vars/default_vars.yml
   - ../vars/medium.localvars
   - ../vars/ubuntu-16.yml
-  #- ../vars/{{ ansible_local.local_facts.os_ver }}.yml
   #- ../vars/local_vars.yml
 
 
