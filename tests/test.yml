@@ -6,9 +6,6 @@
   gather_facts: true
 
   pre_tasks:
-    - name: "Run setup with filter ansible_local"
-      setup:
-          filter: ansible_local
     - name: "Create /etc/iiab directory"
       file:
         path: "/etc/iiab"
@@ -27,7 +24,9 @@
         src: ../scripts/local_facts.fact
         dest: /etc/ansible/facts.d/local_facts.fact
         mode: 0755
-
+    - name: "Run setup with filter ansible_local"
+      setup:
+          filter: ansible_local
   vars_files:
   - ../vars/default_vars.yml
   - ../vars/medium.localvars
