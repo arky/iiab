@@ -16,7 +16,7 @@ python:
 #  system_site_packages: true
 
 # Use the new container infrastructure
-sudo: false
+sudo: True
 
 # Install ansible
 addons:
