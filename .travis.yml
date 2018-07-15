@@ -30,7 +30,7 @@ install:
   - pip install ansible-review
 
   # Check ansible,  version
-  - ansible --version
+  #- ansible --version
   - ansible-lint --version
   - ansible-review --version
 
@@ -39,7 +39,7 @@ install:
 
 script:
   # Continuous integration: syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
+  #- ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
 
   # Continous integration: ansible-list
   - ansible-lint -p *yml
@@ -48,7 +48,7 @@ script:
   - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review
 
   # Continouse integration: ansible code review of changes between master and current branch
-  - git diff master | ansible-review
+  #- git diff master | ansible-review
 
 
 #notifications:
