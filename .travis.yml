@@ -1,59 +1,12 @@
 ---
 language: python
-python:
-#  - "2.6"
-  - "2.7"
-#  - "3.3"
-#  - "3.4"
-#  - "3.5"
-#  - "3.5-dev"  # 3.5 development branch
-  - "3.6"
-#  - "3.6-dev"  # 3.6 development branch
-#  - "3.7-dev"  # 3.7 development branch
-
-# Use insolated virtualenvs
-#virtualenv:
-#  system_site_packages: true
-
-# Use the new container infrastructure
-sudo: False
-
+python: "2.7"
 before_install:
-  - sudo apt-get update -qq
-
-
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
-
+ - sudo apt-get update -qq
 install:
-  # Install ansible, ansible-lint and ansible-review
   - pip install ansible==2.6.0
-  - pip install ansible-review
-
-  # Check ansible,  version
-  - ansible --version
-  - ansible-lint --version
-  - ansible-review --version
-
-  # Create ansible.cfg with correct roles_path
-  #- printf '[defaults]\nroles_path=../' >ansible.cfg
-
 script:
-  # Continuous integration: syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
-
-  # Continous integration: ansible-list
-  - ansible-lint -p *yml
-
-  #  Continous integration: ansible code review
-  - git ls-files *yml roles/ vars/ tests/  | xargs ansible-review
-
-  # Continouse integration: ansible code review of changes between master and current branch
-  #- git diff master | ansible-review
-
-
-#notifications:
-#  webhooks:
+  - echo localhost > inventory
+  # Syntax check
+  - ansible-playbook --syntax-check -i inventory test/test.yml
+# Run role
