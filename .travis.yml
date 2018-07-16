@@ -16,7 +16,11 @@ python:
 #  system_site_packages: true
 
 # Use the new container infrastructure
-sudo: True
+sudo: False
+
+before_install:
+  - sudo apt-get update -qq
+
 
 # Install ansible
 addons:
@@ -26,11 +30,11 @@ addons:
 
 install:
   # Install ansible, ansible-lint and ansible-review
-  - pip install ansible
+  - pip install ansible==2.6.0
   - pip install ansible-review
 
   # Check ansible,  version
-  #- ansible --version
+  - ansible --version
   - ansible-lint --version
   - ansible-review --version
 
@@ -39,7 +43,7 @@ install:
 
 script:
   # Continuous integration: syntax check
-  #- ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -vvv
 
   # Continous integration: ansible-list
   - ansible-lint -p *yml
