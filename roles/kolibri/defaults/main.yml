@@ -11,6 +11,8 @@ kolibri_home: "{{ content_base }}/kolibri"
 kolibri_http_port: 8009
 kolibri_url: /kolibri/
 kolibri_path: "{{ iiab_base }}/kolibri"
+# Kolibri apache2 virtual site configuration
+kolibri_httpd_conf: kolibri.conf
 # 2018-07-16: IIAB recommends /usr/bin but @arky says this isn't yet possible, due to pip
 kolibri_exec_path: /usr/local/bin/kolibri
 
