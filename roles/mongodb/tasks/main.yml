@@ -16,37 +16,49 @@
     owner: mongodb
   with_items:
     - { path: '/var/run/mongodb' }
-    - { path: '/library/dbdata/mongodb' }
+    - { path: "{{ mongodb_db_path }}" }    # == /library/dbdata/mongodb/
     - { path: '/var/log/mongodb' }
 
-- name: Position /etc/mongod.conf and mongodb.service
+- name: Populate & position /etc/mongod.conf, mongodb.service
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "{{ item.mode }}"
   with_items:
-    - { src: 'mongodb.service' , dest: '/etc/systemd/system/' }
-    - { src: 'mongod.conf' , dest: '/etc/mongod.conf'}
+    - { src: 'mongod.conf.j2', dest: "{{ mongodb_conf }}", mode: '0644' }
+    - { src: 'mongodb.service.j2', dest: '/etc/systemd/system/mongodb.service', mode: '0644' }
+    - { src: 'iiab-mongodb-repair-if-no-lock.j2', dest: '/usr/bin/iiab-mongodb-repair-if-no-lock', mode: '0755' }
 
-- name: Restart service if enabled
-  service:
-    name: "{{ item.name }}"
+- name: Enable+restart systemd service if mongodb_enabled, with "systemctl daemon-reload" (in case mongodb.service changed?)
+  systemd:
+    name: mongodb
     enabled: yes
     state: restarted
-  with_items:
-    - { name: mongodb }
+    daemon_reload: yes
   when: mongodb_enabled
 
-- name: Stop service if not enabled
-  service:
-    name: "{{ item.name }}"
+- name: 'Disable+stop systemd service if mongodb_enabled: False'
+  systemd:
+    name: mongodb
     enabled: no
     state: stopped
-  with_items:
-    - { name: mongodb }
   when: not mongodb_enabled
+
+#- name: Restart service if enabled
+#  service:
+#    name: mongodb
+#    enabled: yes
+#    state: restarted
+#  when: mongodb_enabled
+
+#- name: Stop service if not enabled
+#  service:
+#    name: mongodb
+#    enabled: no
+#    state: stopped
+#  when: not mongodb_enabled
 
 - name: Add 'mongodb' to list of services at /etc/iiab/iiab.ini
   ini_file:
