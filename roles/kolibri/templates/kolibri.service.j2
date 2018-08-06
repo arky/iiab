@@ -7,6 +7,8 @@ RemainAfterExit=yes
 Environment=KOLIBRI_USER={{ kolibri_user }}
 Environment=KOLIBRI_HOME={{ kolibri_home }}
 Environment=KOLIBRI_HTTP_PORT={{ kolibri_http_port }}
+Environment=USE_X_FORWARDED_HOST=True
+#Environment=FORCE_SCRIPT_NAME=/kolibri
 User={{ kolibri_user }}
 Group={{ apache_user }}
 ExecStart={{ kolibri_exec_path }} start
