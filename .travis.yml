@@ -1,12 +1,37 @@
 ---
 language: python
-python: "2.7"
+services: docker
+
+# Placeholder top level role name iiab
+env:
+    global:
+      - ROLE_NAME: iiab
+matrix:
+    - MOLECULE_DISTRO: centos7
+      MOLECULE_DOCKER_COMMAND: /usr/lib/systemd/systemd
+    - MOLECULE_DISTRO: centos6
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: ubuntu1404
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: debian8
+
+
 before_install:
- - sudo apt-get update -qq
+- sudo apt-get -qq update
+
 install:
+  - pip install molecule docker
   - pip install ansible==2.6.0
-script:
+
+before_script:
   - echo localhost > inventory
-  # Syntax check
+
+script:
+# Syntax check
   - ansible-playbook --syntax-check -i inventory test/test.yml
-# Run role
+# Run tests
+# - molecule test
+
+#notifications:
+# webhooks: https://galaxy.ansible.com/api/v1/notifications/
