@@ -47,7 +47,7 @@ install:
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
 
 before_script:
-  - "printf '[defaults]\nlocal_tmp = ~/.ansible/tmp' > ansible.cfg"
+  - "{ echo '[defaults]'; echo 'local_tmp = ~/.ansible/tmp'; } >> ansible.cfg"
 
 script:
   - ansible --version
