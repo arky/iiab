@@ -46,6 +46,9 @@ install:
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
 
+before_script:
+  - "printf 'local_tmp      = ~/.ansible/tmp' > ansible.cfg"
+
 script:
   - ansible --version
   # Check the role/playbook's syntax.
