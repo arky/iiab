@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   connection: local
+  become: true
   # TODO: Making a anisble-iiab roles for ansible-galaxy
   #  roles:
   #      - iiab
