@@ -1,4 +1,5 @@
 ---
+sudo: required
 language: python
 services: docker
 
@@ -24,12 +25,9 @@ install:
   - pip install molecule docker
   - pip install ansible
 
-before_script:
-  - echo localhost > inventory
-
 script:
 # Syntax check
-  - ansible-playbook --syntax-check -i inventory test/test.yml
+  - ansible-playbook --syntax-check -i tests/inventory test/test.yml
 # Run tests
 # - molecule test
 
